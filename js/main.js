@@ -22,7 +22,7 @@ var cards = [
 }
 ];
 
-
+var points = 0;
 var cardsInPlay = [];
 
 // function to check if cards match
@@ -30,6 +30,7 @@ var checkForMatch = function() {
 	var display = document.querySelector('.display');
 if (cardsInPlay[1] === cardsInPlay[3]) {
 	 display.textContent = 'You found a match!';
+	 points++;
 } else {
 	 display.textContent = 'Sorry, try again';
 }
@@ -39,7 +40,7 @@ var resetBoard = function() {
 for (var i = 0; i < cards.length; i++) {
 	var newElement = document.getElementsByTagName('img')[i];
 	newElement.setAttribute('src', 'images/back.png');
-	document.querySelector('.display').textContent = 'Let\'s start a new match';
+	document.querySelector('.display').textContent = 'Your Score: ' + points + ' points';
 	cardsInPlay = [];
 }
 };
@@ -48,7 +49,7 @@ for (var i = 0; i < cards.length; i++) {
 var flipCard = function() {
 	var cardId = this.getAttribute('data-id');
 	console.log('User flipped ' + cards[cardId].rank);
-	
+
 // check to see for similiar selection
 	cardsInPlay.push(cardId);
 	cardsInPlay.push(cards[cardId].rank);
