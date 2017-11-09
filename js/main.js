@@ -22,12 +22,13 @@ var cards = [
 }
 ];
 
+
 var cardsInPlay = [];
 
 // function to check if cards match
 var checkForMatch = function() {
 	var display = document.querySelector('.display');
-if (cardsInPlay[0] === cardsInPlay[1]) {
+if (cardsInPlay[1] === cardsInPlay[3]) {
 	 display.textContent = 'You found a match!';
 } else {
 	 display.textContent = 'Sorry, try again';
@@ -46,15 +47,23 @@ for (var i = 0; i < cards.length; i++) {
 // function to flip card
 var flipCard = function() {
 	var cardId = this.getAttribute('data-id');
-console.log('User flipped ' + cards[cardId].rank);
+	console.log('User flipped ' + cards[cardId].rank);
+	
+// check to see for similiar selection
+	cardsInPlay.push(cardId);
+	cardsInPlay.push(cards[cardId].rank);
+	this.setAttribute('src', cards[cardId].cardImage);
 
-cardsInPlay.push(cards[cardId].rank);
-this.setAttribute('src', cards[cardId].cardImage);
 // exercute function 2 times 
-if (cardsInPlay.length === 2) {
-checkForMatch();
+if (cardsInPlay.length === 4) {
+	if (cardsInPlay[0] === cardsInPlay[2]) {
+		cardsInPlay.pop();
+		cardsInPlay.pop();
+	} else {
+		checkForMatch();
+	}
 }
-if (cardsInPlay.length === 3) {
+if (cardsInPlay.length === 6) {
 	resetBoard();
 }
 };
